@@ -587,6 +587,7 @@ def Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow):
     Comp_Move.append(Comp_L(red))    
     handle_Comp(yellow_bullets,Dogde,Comp_Move)
     pygame.display.update() 
+
 class paddle():
 	def __init__(self, x, y):
 		self.x = x
