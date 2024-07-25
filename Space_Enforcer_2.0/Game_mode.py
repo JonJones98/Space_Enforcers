@@ -36,10 +36,23 @@ def draw_kill(kill_pos):
     Explosion_sound.play()
     Explosion_sound.set_volume(2)
 def main(): 
-    screen = pygame.display.set_mode((640, 480))
-    pygame.display.set_caption("Joystick Testing / XBOX360 Controller")
+    DISPLAYSURF = pygame.display.set_mode((Width, Height))
+    pygame.display.set_caption("Space Games")
 
-    background = pygame.Surface(screen.get_size())
+    background = pygame.Surface(DISPLAYSURF.get_size())
+    background = background.convert()
+    background.fill((255, 255, 255))
+
+    joysticks = []
+    clock = pygame.time.Clock()
+    keepPlaying = True
+    clock.tick(60)
+
+def main2(): 
+    DISPLAYSURF = pygame.display.set_mode((Width, Height))
+    pygame.display.set_caption("Space Games")
+
+    background = pygame.Surface(DISPLAYSURF.get_size())
     background = background.convert()
     background.fill((255, 255, 255))
 
@@ -144,10 +157,11 @@ def draw_reset(Round,Start1):
                 DISPLAYSURF.fill(Black)
                 pygame.display.update()
                 while PVP:
+                    pygame.mixer.Channel(0).fadeout(3000)
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
                     DISPLAYSURF.blit(game_version,(20,Height//2))
-                    pygame.time.delay(3000)
+                    pygame.time.delay(8000)
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
                     Round+=1
@@ -201,21 +215,26 @@ def draw_reset(Round,Start1):
                     print(Red_player)
                     print(Yellow_player)   
 def draw_load():
-    loading=[8,7,6,5,4,3,2,1]
+    main()
+    loading=[8,7,6,5,4,3,2,1,0]
+    pygame.display.update()
     DISPLAYSURF.fill(Black)
     pygame.display.update()
+    #pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'rocket-launch-collage.mp3')))
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'Space_sound.mp3')),loops=-1)
-    #Loaded_up_sound.play
-    #Loaded_up_sound.set_volume(2)
+    
     pygame.time.delay(1000)
     print("Start")
     for countdown in loading:
         count_d=Health_font.render(str(countdown),1,White)
         DISPLAYSURF.blit(count_d,(450,150))
         print(countdown)
+        Loaded_up_sound.play()
+        Loaded_up_sound.set_volume(4)
         pygame.display.update()
-        pygame.time.delay(1000)
+        pygame.time.delay(3000)
         DISPLAYSURF.fill(Black)
+        Loaded_up_sound.stop()
         pygame.display.update()
     
 def Champ_win(Champ_color,Red_player,Yellow_player):
@@ -236,6 +255,8 @@ def draw_Champion(Champ):
 
 #Main game loop P1vsp2
 def main_PVP(Round,Champ,red_score_text,yellow_score_text):
+    pygame.mixer.Channel(0).fadeout(3000)
+    pygame.time.delay(2000)
     pygame.display.update()
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
@@ -316,7 +337,8 @@ def main_PVP(Round,Champ,red_score_text,yellow_score_text):
 #Main game loop CPUvsP1
 def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player,main):
     pygame.mixer.Channel(0).pause
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1)
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1,fade_ms=3000)
+    
     pygame.display.update()
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
