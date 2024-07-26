@@ -8,6 +8,7 @@ import random
 from pygame import draw
 from pygame import joystick
 from pygame.locals import *
+import cv2
 
 #Global Variable
 global Width
@@ -94,9 +95,9 @@ b = ""
 Border = pygame.Rect((Width // 2, 0, 10, Height))
 
 #Fonts
-Health_font = pygame.font.SysFont("comicsans", 40)
-Winner_font = pygame.font.SysFont("comicsans", 100)
-Reset_font = pygame.font.SysFont("comicsans", 60)
+Health_font = pygame.font.SysFont("Roboto", 40)
+Winner_font = pygame.font.SysFont("Roboto", 100)
+Reset_font = pygame.font.SysFont("Roboto", 60)
 
 #Imported images
 Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Play.png')),(Width,Height))
@@ -113,6 +114,15 @@ Explosion_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Pr
 Shaceship_eng_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Rocket-sound-effect.mp3'))
 Loaded_up_sound=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/mixkit-clock-countdown-bleeps-916.wav'))
 Loaded_up_music=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/shuttlelaunch-24467.mp3'))
+Space_image = pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.png'))
+#Space_video = moviepy.editor.VideoFileClip('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.mp4')
+video = cv2.VideoCapture('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.mp4')
+fps = video.get(cv2.CAP_PROP_FPS)
+clock = pygame.time.Clock()
+clock.tick(fps)
+success, video_image = video.read()
+video_surf = pygame.image.frombuffer(video_image, video_image.shape[1::-1], "BGR")
+
 back=[Space_background1,Space_background]
 if Round>2:
     back_opt=back[1]

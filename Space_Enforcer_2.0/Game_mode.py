@@ -157,7 +157,7 @@ def draw_reset(Round,Start1):
                 DISPLAYSURF.fill(Black)
                 pygame.display.update()
                 while PVP:
-                    pygame.mixer.Channel(0).fadeout(3000)
+                    pygame.mixer.Channel(0).fadeout(13000)
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
                     DISPLAYSURF.blit(game_version,(20,Height//2))
@@ -216,26 +216,34 @@ def draw_reset(Round,Start1):
                     print(Yellow_player)   
 def draw_load():
     main()
-    loading=[8,7,6,5,4,3,2,1,0]
+    loading=[3,2,1]
+    game_intro=Reset_font.render('SPACE ENFORCER',1,White)
     pygame.display.update()
     DISPLAYSURF.fill(Black)
     pygame.display.update()
-    #pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'rocket-launch-collage.mp3')))
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'Space_sound.mp3')),loops=-1)
+    pygame.mixer.Channel(1).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'rocket-launch-collage.mp3')))
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
     
-    pygame.time.delay(1000)
+    pygame.time.delay(11500)
     print("Start")
     for countdown in loading:
         count_d=Health_font.render(str(countdown),1,White)
         DISPLAYSURF.blit(count_d,(450,150))
         print(countdown)
-        Loaded_up_sound.play()
-        Loaded_up_sound.set_volume(4)
+        #Loaded_up_sound.play()
+        #Loaded_up_sound.set_volume(1.0)
         pygame.display.update()
-        pygame.time.delay(3000)
+        pygame.time.delay(1000)
         DISPLAYSURF.fill(Black)
-        Loaded_up_sound.stop()
+        #Loaded_up_sound.stop()
         pygame.display.update()
+    
+    DISPLAYSURF.blit(game_intro,(200,150))
+    pygame.display.update()
+    pygame.time.delay(8000)
+    DISPLAYSURF.fill(Black)
+    pygame.display.update()
+    
     
 def Champ_win(Champ_color,Red_player,Yellow_player):
     if Red_player>2:

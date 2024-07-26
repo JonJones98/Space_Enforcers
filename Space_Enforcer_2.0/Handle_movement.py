@@ -35,10 +35,10 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
     side=['1','2']
     ally_lis=[1,0]
     Ally=random.choice(ally_lis)
-    #if Ally==1:
-    cpu_decision=random.choice(up_down)
-    #if Ally==0:
-    cpu_direction=random.choice(side)
+    if Ally==1:
+        cpu_decision=random.choice(up_down)
+    if Ally==0:
+        cpu_direction=random.choice(side)
     #for d in c:
     d=1
     #if handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle):
@@ -127,7 +127,7 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                         Spaceship_guns_sound.play()
                         CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
 
-            if a==''and red.y + VEL + red.height < Height-10 :
+            if a=='3'and red.y + VEL + red.height < Height-10 :
                 if yellow.y==red.y:
                     red.y += VEL*0
                     if len(red_bullets)< 1:
