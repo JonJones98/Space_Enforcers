@@ -9,6 +9,9 @@ from pygame import draw
 from pygame import joystick
 from pygame.locals import *
 import cv2
+from pyvidplayer2 import Video
+from button import Button
+
 
 #Global Variable
 global Width
@@ -55,11 +58,13 @@ global Explosion_sound
 global Shaceship_eng_sound
 global Loaded_up_sound
 global back
+global Menu_image
+global Game_mode_image
 
 #Pygame Setup
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.pre_init(frequency=44100, size=0, channels=1, buffer=512)
+pygame.mixer.pre_init(frequency=44100, size=0, channels=0, buffer=512)
 pygame.display.set_caption("Space Games")
 Width = 900
 Height = 500
@@ -98,6 +103,21 @@ Border = pygame.Rect((Width // 2, 0, 10, Height))
 Health_font = pygame.font.SysFont("Roboto", 40)
 Winner_font = pygame.font.SysFont("Roboto", 100)
 Reset_font = pygame.font.SysFont("Roboto", 60)
+Default_font = pygame.font.SysFont("Roboto", 60)
+
+#Buttons
+PLAY_BUTTON = Button(image=None, pos=(450, 150), 
+                            text_input="PLAY", font=Default_font, base_color="#d7fcd4", hovering_color="White")
+OPTIONS_BUTTON = Button(image=None, pos=(450, 250), 
+                            text_input="OPTIONS", font=Default_font, base_color="#d7fcd4", hovering_color="White")
+QUIT_BUTTON = Button(image=None, pos=(450, 350), 
+                            text_input="QUIT", font=Default_font, base_color="#d7fcd4", hovering_color="White")
+ONE_PLAYER_BUTTON = Button(image=None, pos=(450, 150), 
+                            text_input="1 PLAYER", font=Default_font, base_color="#d7fcd4", hovering_color="White")
+TWO_PLAYER_BUTTON = Button(image=None, pos=(450, 250), 
+                            text_input="2 PLAYER", font=Default_font, base_color="#d7fcd4", hovering_color="White")
+MENU_BUTTON = Button(image=None, pos=(450, 350), 
+                            text_input="MENU", font=Default_font, base_color="#d7fcd4", hovering_color="White")
 
 #Imported images
 Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Play.png')),(Width,Height))
@@ -115,6 +135,8 @@ Shaceship_eng_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asse
 Loaded_up_sound=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/mixkit-clock-countdown-bleeps-916.wav'))
 Loaded_up_music=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/shuttlelaunch-24467.mp3'))
 Space_image = pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.png'))
+Menu_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Menu.png')),(Width,Height))
+Game_mode_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Game_Mode.png')),(Width,Height))
 #Space_video = moviepy.editor.VideoFileClip('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.mp4')
 video = cv2.VideoCapture('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.mp4')
 fps = video.get(cv2.CAP_PROP_FPS)
@@ -128,3 +150,64 @@ if Round>2:
     back_opt=back[1]
 else:
     back_opt=back[Round-1]
+
+def intro2():
+    vid = Video("Space_Enforcer_2.0/Space Enforcer Intro.mp4")
+    vid.resize((900,500))
+    #vid.play()
+    print("137")
+    while vid.active:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                vid.stop()
+        vid.draw(DISPLAYSURF ,(0,0),force_draw=False)
+        pygame.display.update()
+        print("140")
+        
+def intro():
+    
+    # create video object
+    
+    vid = Video("Space_Enforcer_2.0/Space Enforcer Intro.mp4")
+    
+    vid.resize((900,500))
+    pygame.display.set_caption("Space Enforcer")
+    #vid.play()
+    vid.toggle_mute() 
+    pygame.mixer.Channel(1).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'rocket-launch-collage.mp3')),fade_ms=10000)
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
+    
+    while vid.active:
+        
+        key = None
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                vid.stop()
+                pygame.quit()
+            elif event.type == pygame.KEYDOWN:
+                key = pygame.key.name(event.key)
+                print(key)
+        
+
+        if key == "space":
+            pygame.mixer.Channel(1).stop()
+            pygame.mixer.Channel(0).stop()
+            DISPLAYSURF.fill(Black)
+            pygame.display.update()
+            vid.close()
+            pygame.time.delay(1000)
+            pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'Space_sound.mp3')),loops=-1,fade_ms=2000)
+
+    
+        # only draw new frames, and only update the screen if something is drawn
+        
+        if vid.draw(DISPLAYSURF, (0, 0), force_draw=False):
+            pygame.display.update()
+    
+        pygame.time.wait(16) # around 60 fps
+    
+    
+    # close video when done
+    
+    vid.close()
+

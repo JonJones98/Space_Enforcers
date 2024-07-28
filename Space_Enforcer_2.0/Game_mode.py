@@ -1,5 +1,6 @@
 from Settings import *
 from Handle_movement import *
+from button import *
 
 #Draw
 def draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Yellow_player,Red_player,Round):
@@ -35,6 +36,7 @@ def draw_kill(kill_pos):
     pygame.display.update()
     Explosion_sound.play()
     Explosion_sound.set_volume(2)
+
 def main(): 
     DISPLAYSURF = pygame.display.set_mode((Width, Height))
     pygame.display.set_caption("Space Games")
@@ -47,7 +49,6 @@ def main():
     clock = pygame.time.Clock()
     keepPlaying = True
     clock.tick(60)
-
 def main2(): 
     DISPLAYSURF = pygame.display.set_mode((Width, Height))
     pygame.display.set_caption("Space Games")
@@ -104,85 +105,111 @@ def main2():
                         background.fill((0, 0, 255))
                 elif event.type == pygame.JOYBUTTONUP:
                     print ("Joystick ",joysticks[event.joy].get_name(),"' b3utton")
+
 def draw_reset(Round,Start1):
     while Start1:
         CVP =True
-        text1 =Health_font.render("Plaver vs Player *Press p",1,White)
-        text2=Health_font.render(    "Player vs CPU *Press c",1,White)
-        text3=Health_font.render(    "CPU vs CPU *Press v",1,White)
-        DISPLAYSURF.blit(text1,(250,150))
-        DISPLAYSURF.blit(text2,(250,250))
-        DISPLAYSURF.blit(text3,(250,325))
+        pygame.display.update()
+        DISPLAYSURF.blit(Menu_image,(0,0))
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        pygame.display.update()
+
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(DISPLAYSURF)
+        for event in pygame.event.get():
+            keys_pressed = pygame.key.get_pressed()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    draw_play(Round,Start1)
+                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.quit()
+                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    draw_play(Round,Start1)
+            if keys_pressed[pygame.K_m]:
+                draw_play(Round,Start1)
+def draw_play(Round,Start1):
+    while Start1:
+        CVP =True
+        DISPLAYSURF.blit(Game_mode_image,(0,0))
+        GAME_MODE_MOUSE_POS = pygame.mouse.get_pos()
+        pygame.display.update()
+        for button in [ONE_PLAYER_BUTTON, TWO_PLAYER_BUTTON, MENU_BUTTON]:
+            button.changeColor(GAME_MODE_MOUSE_POS)
+            button.update(DISPLAYSURF)
         pygame.display.update()
         for event in pygame.event.get():
             keys_pressed = pygame.key.get_pressed()
-            if keys_pressed[pygame.K_c]:
-                print("CVP") #Left
-                CVP=True
-                game_version = Winner_font.render("Player vs CPU",1,White)
-                DISPLAYSURF.fill(Black)
-                pygame.display.update()
-                while CVP:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if MENU_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
+                    draw_reset(Round,Start1)
+                if TWO_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
+                    print("CVP") #Left
+                    CVP=True
+                    game_version = Winner_font.render("Player vs CPU",1,White)
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
-                    DISPLAYSURF.blit(game_version,(20,Height//2))
-                    pygame.display.update()
-                    pygame.time.delay(3000)
-                    DISPLAYSURF.fill(Black)
-                    pygame.display.update()
-                    Round+=1
-                    Levels=Round*50
-                    print(Round)
-                    pygame.display.update()
-                    rounds = Winner_font.render("Round " + str(Round),1,White)
-                    DISPLAYSURF.blit(rounds,(Width//3,Height//2))
-                    pygame.display.update()
-                    pygame.time.delay(5000)
-                    main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player)
-                    pygame.display.update()
-                    DISPLAYSURF.fill(Black)
-                    score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
-                    DISPLAYSURF.blit(score,(200,300))
-                    pygame.display.update()
-                    pygame.time.delay(3000)
-                    print(Red_player)
-                    print(Yellow_player)
-                
-
-            if keys_pressed[pygame.K_p]:
-                print("PVP") #Right
-                PVP=True
-                game_version=Health_font.render("Plaver vs Player",1,White)
-                pygame.display.update()
-                DISPLAYSURF.fill(Black)
-                pygame.display.update()
-                while PVP:
-                    pygame.mixer.Channel(0).fadeout(13000)
-                    DISPLAYSURF.fill(Black)
-                    pygame.display.update()
-                    DISPLAYSURF.blit(game_version,(20,Height//2))
-                    pygame.time.delay(8000)
-                    DISPLAYSURF.fill(Black)
-                    pygame.display.update()
-                    Round+=1
-                    Levels=Round*50
-                    print(Round)
-                    pygame.display.update()
-                    rounds = Winner_font.render("Round " + str(Round),1,White)
-                    DISPLAYSURF.blit(rounds,(Width//3,Height//2))
-                    pygame.display.update()
-                    pygame.time.delay(5000)
-                    Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player,main)
+                    while CVP:
+                        DISPLAYSURF.fill(Black)
+                        pygame.display.update()
+                        DISPLAYSURF.blit(game_version,(20,Height//2))
+                        pygame.display.update()
+                        pygame.time.delay(3000)
+                        DISPLAYSURF.fill(Black)
+                        pygame.display.update()
+                        Round+=1
+                        Levels=Round*50
+                        print(Round)
+                        pygame.display.update()
+                        rounds = Winner_font.render("Round " + str(Round),1,White)
+                        DISPLAYSURF.blit(rounds,(Width//3,Height//2))
+                        pygame.display.update()
+                        pygame.time.delay(5000)
+                        main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player)
+                        pygame.display.update()
+                        DISPLAYSURF.fill(Black)
+                        score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
+                        DISPLAYSURF.blit(score,(200,300))
+                        pygame.display.update()
+                        pygame.time.delay(3000)
+                        print(Red_player)
+                        print(Yellow_player)
+                if ONE_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
+                    print("PVP") #Right
+                    PVP=True
+                    game_version=Health_font.render("Plaver vs Player",1,White)
                     pygame.display.update()
                     DISPLAYSURF.fill(Black)
-                    score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
-                    DISPLAYSURF.blit(score,(200,300))
                     pygame.display.update()
-                    pygame.time.delay(3000)
-                    print(Red_player)
-                    print(Yellow_player)
-                    
-
+                    while PVP:
+                        pygame.mixer.Channel(0).fadeout(13000)
+                        DISPLAYSURF.fill(Black)
+                        pygame.display.update()
+                        DISPLAYSURF.blit(game_version,(20,Height//2))
+                        pygame.time.delay(8000)
+                        DISPLAYSURF.fill(Black)
+                        pygame.display.update()
+                        Round+=1
+                        Levels=Round*50
+                        print(Round)
+                        pygame.display.update()
+                        rounds = Winner_font.render("Round " + str(Round),1,White)
+                        DISPLAYSURF.blit(rounds,(Width//3,Height//2))
+                        pygame.display.update()
+                        pygame.time.delay(5000)
+                        Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player,main)
+                        pygame.display.update()
+                        DISPLAYSURF.fill(Black)
+                        score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
+                        DISPLAYSURF.blit(score,(200,300))
+                        pygame.display.update()
+                        pygame.time.delay(3000)
+                        print(Red_player)
+                        print(Yellow_player)
             if keys_pressed[pygame.K_v]:
                 print("CVC") #Right
                 CVC=True
@@ -214,36 +241,7 @@ def draw_reset(Round,Start1):
                     pygame.time.delay(3000)
                     print(Red_player)
                     print(Yellow_player)   
-def draw_load():
-    main()
-    loading=[3,2,1]
-    game_intro=Reset_font.render('SPACE ENFORCER',1,White)
-    pygame.display.update()
-    DISPLAYSURF.fill(Black)
-    pygame.display.update()
-    pygame.mixer.Channel(1).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'rocket-launch-collage.mp3')))
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
-    
-    pygame.time.delay(11500)
-    print("Start")
-    for countdown in loading:
-        count_d=Health_font.render(str(countdown),1,White)
-        DISPLAYSURF.blit(count_d,(450,150))
-        print(countdown)
-        #Loaded_up_sound.play()
-        #Loaded_up_sound.set_volume(1.0)
-        pygame.display.update()
-        pygame.time.delay(1000)
-        DISPLAYSURF.fill(Black)
-        #Loaded_up_sound.stop()
-        pygame.display.update()
-    
-    DISPLAYSURF.blit(game_intro,(200,150))
-    pygame.display.update()
-    pygame.time.delay(8000)
-    DISPLAYSURF.fill(Black)
-    pygame.display.update()
-    
+
     
 def Champ_win(Champ_color,Red_player,Yellow_player):
     if Red_player>2:
@@ -344,10 +342,10 @@ def main_PVP(Round,Champ,red_score_text,yellow_score_text):
         pygame.display.update()
 #Main game loop CPUvsP1
 def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player,main):
+    pygame.display.update()
+    pygame.time.delay(3000)
     pygame.mixer.Channel(0).pause
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1,fade_ms=3000)
-    
-    pygame.display.update()
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
     yellow_bullets =[]
@@ -462,9 +460,10 @@ def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
         #Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow)
         pygame.display.update()
 def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player):
-    pygame.mixer.Channel(0).pause
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1)
     pygame.display.update()
+    pygame.time.delay(3000)
+    pygame.mixer.Channel(0).pause
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
     yellow_bullets =[]
@@ -557,9 +556,10 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
         #Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow)
         pygame.display.update()
 def main_CVC(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player):
-    pygame.mixer.Channel(0).pause
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1)
     pygame.display.update()
+    pygame.time.delay(3000)
+    pygame.mixer.Channel(0).pause
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
     yellow_bullets =[]

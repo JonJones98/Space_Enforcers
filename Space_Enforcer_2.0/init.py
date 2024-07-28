@@ -2,7 +2,8 @@ from Game_mode import *
 from Settings import *
 
 
-#draw_load()
+
+intro()
 pygame.display.update()
 draw_reset(Round,Start1)
 pygame.display.update()
