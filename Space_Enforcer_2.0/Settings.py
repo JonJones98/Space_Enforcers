@@ -103,21 +103,22 @@ Border = pygame.Rect((Width // 2, 0, 10, Height))
 Health_font = pygame.font.SysFont("Roboto", 40)
 Winner_font = pygame.font.SysFont("Roboto", 100)
 Reset_font = pygame.font.SysFont("Roboto", 60)
-Default_font = pygame.font.SysFont("Roboto", 60)
+Default_font = pygame.font.SysFont("Roboto", 40)
 
 #Buttons
-PLAY_BUTTON = Button(image=None, pos=(450, 150), 
-                            text_input="PLAY", font=Default_font, base_color="#d7fcd4", hovering_color="White")
-OPTIONS_BUTTON = Button(image=None, pos=(450, 250), 
-                            text_input="OPTIONS", font=Default_font, base_color="#d7fcd4", hovering_color="White")
-QUIT_BUTTON = Button(image=None, pos=(450, 350), 
-                            text_input="QUIT", font=Default_font, base_color="#d7fcd4", hovering_color="White")
-ONE_PLAYER_BUTTON = Button(image=None, pos=(450, 150), 
-                            text_input="1 PLAYER", font=Default_font, base_color="#d7fcd4", hovering_color="White")
-TWO_PLAYER_BUTTON = Button(image=None, pos=(450, 250), 
-                            text_input="2 PLAYER", font=Default_font, base_color="#d7fcd4", hovering_color="White")
-MENU_BUTTON = Button(image=None, pos=(450, 350), 
-                            text_input="MENU", font=Default_font, base_color="#d7fcd4", hovering_color="White")
+image_hover = pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button_Hover.png")
+PLAY_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 150), 
+                            text_input="PLAY", font=Default_font, base_color="Black", hovering_color="Black")
+OPTIONS_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"), image_hover=image_hover,pos=(450, 250), 
+                            text_input="OPTIONS", font=Default_font, base_color="Black", hovering_color="Black")
+QUIT_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 350), 
+                            text_input="QUIT", font=Default_font, base_color="Black", hovering_color="Black")
+ONE_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 150), 
+                            text_input="1 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
+TWO_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 250), 
+                            text_input="2 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
+MENU_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 350), 
+                            text_input="MENU", font=Default_font, base_color="Black", hovering_color="Black")
 
 #Imported images
 Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Play.png')),(Width,Height))
@@ -137,7 +138,6 @@ Loaded_up_music=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Pro
 Space_image = pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.png'))
 Menu_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Menu.png')),(Width,Height))
 Game_mode_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Game_Mode.png')),(Width,Height))
-#Space_video = moviepy.editor.VideoFileClip('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.mp4')
 video = cv2.VideoCapture('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.mp4')
 fps = video.get(cv2.CAP_PROP_FPS)
 clock = pygame.time.Clock()
@@ -150,25 +150,12 @@ if Round>2:
     back_opt=back[1]
 else:
     back_opt=back[Round-1]
-
-def intro2():
-    vid = Video("Space_Enforcer_2.0/Space Enforcer Intro.mp4")
-    vid.resize((900,500))
-    #vid.play()
-    print("137")
-    while vid.active:
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                vid.stop()
-        vid.draw(DISPLAYSURF ,(0,0),force_draw=False)
-        pygame.display.update()
-        print("140")
-        
+       
 def intro():
     
     # create video object
     
-    vid = Video("Space_Enforcer_2.0/Space Enforcer Intro.mp4")
+    vid = Video("Space_Enforcer_2.0/Asset Project 1/Space Enforcer Intro.mp4")
     
     vid.resize((900,500))
     pygame.display.set_caption("Space Enforcer")

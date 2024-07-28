@@ -109,35 +109,37 @@ def main2():
 def draw_reset(Round,Start1):
     while Start1:
         CVP =True
-        pygame.display.update()
         DISPLAYSURF.blit(Menu_image,(0,0))
         MENU_MOUSE_POS = pygame.mouse.get_pos()
-        pygame.display.update()
 
         for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+            button.changeColor(MENU_MOUSE_POS,DISPLAYSURF)
             button.update(DISPLAYSURF)
+       
         for event in pygame.event.get():
-            keys_pressed = pygame.key.get_pressed()
+            
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    print("play",MENU_MOUSE_POS,PLAY_BUTTON.checkForInput(MENU_MOUSE_POS))
                     draw_play(Round,Start1)
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pygame.quit()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    draw_play(Round,Start1)
-            if keys_pressed[pygame.K_m]:
-                draw_play(Round,Start1)
+                    print("option",MENU_MOUSE_POS,OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS))
+                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    print("Quit",MENU_MOUSE_POS,QUIT_BUTTON.checkForInput(MENU_MOUSE_POS))
+                    pygame.quit()
+                    sys.exit()
+
+        pygame.display.update()
+
 def draw_play(Round,Start1):
     while Start1:
         CVP =True
         DISPLAYSURF.blit(Game_mode_image,(0,0))
         GAME_MODE_MOUSE_POS = pygame.mouse.get_pos()
-        pygame.display.update()
         for button in [ONE_PLAYER_BUTTON, TWO_PLAYER_BUTTON, MENU_BUTTON]:
-            button.changeColor(GAME_MODE_MOUSE_POS)
+            button.changeColor(GAME_MODE_MOUSE_POS,DISPLAYSURF)
             button.update(DISPLAYSURF)
         pygame.display.update()
         for event in pygame.event.get():
@@ -145,9 +147,11 @@ def draw_play(Round,Start1):
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                print(GAME_MODE_MOUSE_POS)
                 if MENU_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
+                    print("Menu clicked")
                     draw_reset(Round,Start1)
-                if TWO_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
+                if ONE_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
                     print("CVP") #Left
                     CVP=True
                     game_version = Winner_font.render("Player vs CPU",1,White)
@@ -178,7 +182,7 @@ def draw_play(Round,Start1):
                         pygame.time.delay(3000)
                         print(Red_player)
                         print(Yellow_player)
-                if ONE_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
+                if TWO_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
                     print("PVP") #Right
                     PVP=True
                     game_version=Health_font.render("Plaver vs Player",1,White)
