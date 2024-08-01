@@ -6,7 +6,7 @@ def yellow_handle_movement(keys_pressed, yellow):
         yellow.x -= VEL
         #Shaceship_eng_sound.play()
         #Shaceship_eng_sound.stop()
-    if keys_pressed[pygame.K_RIGHT] and yellow.x + VEL + yellow.width < Width: #Right
+    if keys_pressed[pygame.K_RIGHT] and yellow.x + VEL + yellow.width < DISPLAYSURF.get_width(): #Right
         yellow.x += VEL
         #Shaceship_eng_sound.play()
         #Shaceship_eng_sound.stop()
@@ -15,7 +15,7 @@ def yellow_handle_movement(keys_pressed, yellow):
         #Shaceship_eng_sound.play()
         #Shaceship_eng_sound.stop()
 
-    if keys_pressed[pygame.K_DOWN] and yellow.y + VEL + yellow.height < Height-10: #Down
+    if keys_pressed[pygame.K_DOWN] and yellow.y + VEL + yellow.height < DISPLAYSURF.get_height()-10: #Down
         yellow.y += VEL
         Shaceship_eng_sound.play()
         Shaceship_eng_sound.stop()
@@ -26,7 +26,7 @@ def red_handle_movement(keys_pressed, red):
         red.x += VEL
     if keys_pressed[pygame.K_w] and red.y - VEL > 0: #Up
         red.y -= VEL
-    if keys_pressed[pygame.K_s] and red.y + VEL + red.height < Height-10: #Down
+    if keys_pressed[pygame.K_s] and red.y + VEL + red.height < DISPLAYSURF.get_height()-10: #Down
         red.y += VEL
 
 #CPU Handle Movements
@@ -127,7 +127,7 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                         Spaceship_guns_sound.play()
                         CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
 
-            if a=='3'and red.y + VEL + red.height < Height-10 :
+            if a=='3'and red.y + VEL + red.height < DISPLAYSURF.get_height()-10 :
                 if yellow.y==red.y:
                     red.y += VEL*0
                     if len(red_bullets)< 1:
@@ -146,7 +146,7 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                     b.remove(a)
                     pygame.display.update()
                     CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-            if red.y + VEL + red.height < Height-10: #Down
+            if red.y + VEL + red.height < DISPLAYSURF.get_height()-10: #Down
                 if a=='1':#Left
                     if yellow.y==red.y:
                         red.x -= VEL*0
@@ -286,7 +286,7 @@ def CPU_yellow_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,ye
                         Spaceship_guns_sound.play()
                         CPU_yellow_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,yellow)
 
-            if g==''and yellow.y + VEL + yellow.height < Height-10 :
+            if g==''and yellow.y + VEL + yellow.height < DISPLAYSURF.get_height()-10 :
                 print(e,'h4')
                 if yellow.y==red.y:
                     yellow.y += VEL*0
@@ -304,7 +304,7 @@ def CPU_yellow_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,ye
                     e.remove(g)
                     pygame.display.update()
                     CPU_red_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,yellow)
-            if red.y + VEL + red.height < Height-10: #Down
+            if red.y + VEL + red.height < DISPLAYSURF.get_height()-10: #Down
                 if g=='1':#Left
                     print(e,'h5')
                     if yellow.y==red.y:
@@ -409,7 +409,7 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
             else:
                 Dodge_speed = (float(VEL)*4) #- float(Round) *.75
 
-            if red.y <lim: #and red.y + VEL + red.height > Height-50: #Down
+            if red.y <lim: #and red.y + VEL + red.height > DISPLAYSURF.get_height()-50: #Down
                 red.y=red.y+Dodge_speed
                 for ws in b:
                     k=1
@@ -418,7 +418,7 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
                     print('271here')
                     c=1
                     #CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-                    lim=lim+Width//2
+                    lim=lim+DISPLAYSURF.get_width()//2
                 if len(red_bullets)< Max_bullets-4:
                         bullet.x= Round+bullets_Vel
                         bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
@@ -436,7 +436,7 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
                     b.append('3')
                     c=1
                     #CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-                    lim=lim+Width//2
+                    lim=lim+DISPLAYSURF.get_width()//2
                 if len(red_bullets)< Max_bullets-4:
                         bullet.x= Round+bullets_Vel
                         bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
@@ -452,6 +452,6 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
         if yellow.colliderect(bullet):
             pygame.event.post(pygame.event.Event(Yellow_hit))
             red_bullets.remove(bullet)
-        elif bullet.x > Width:
+        elif bullet.x > DISPLAYSURF.get_width():
             red_bullets.remove(bullet)
 

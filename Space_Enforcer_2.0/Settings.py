@@ -14,8 +14,6 @@ from button import Button
 
 
 #Global Variable
-global Width
-global Height
 global DISPLAYSURF
 global Start1
 global White
@@ -66,9 +64,8 @@ pygame.init()
 pygame.mixer.init()
 pygame.mixer.pre_init(frequency=44100, size=0, channels=0, buffer=512)
 pygame.display.set_caption("Space Games")
-Width = 900
-Height = 500
-DISPLAYSURF = pygame.display.set_mode((Width, Height))
+
+DISPLAYSURF = pygame.display.set_mode((900, 500), RESIZABLE)
 Start1 = True
 
 #Colors
@@ -83,9 +80,9 @@ Champ = ""
 #Game Settings
 FPS = 70
 VEL = 8
-bullets_Vel = Width // 100
+bullets_Vel = DISPLAYSURF.get_width() // 100
 Max_bullets = 5
-Spaceship_width, Spaceship_height = Width / 16.3636364, Height / 12.5
+Spaceship_width, Spaceship_height = DISPLAYSURF.get_width() / 16.3636364, DISPLAYSURF.get_height() / 12.5
 Yellow_hit = pygame.USEREVENT + 1
 Red_hit = pygame.USEREVENT + 2
 CPU_hit = pygame.USEREVENT + 3
@@ -97,7 +94,7 @@ yellow_score_text = ""
 b = ""
 
 #Border
-Border = pygame.Rect((Width // 2, 0, 10, Height))
+Border = pygame.Rect((DISPLAYSURF.get_width() // 2, 0, 10, DISPLAYSURF.get_height()))
 
 #Fonts
 Health_font = pygame.font.SysFont("Roboto", 40)
@@ -121,8 +118,8 @@ MENU_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1
                             text_input="MENU", font=Default_font, base_color="Black", hovering_color="Black")
 
 #Imported images
-Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Play.png')),(Width,Height))
-Space_background1 = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/space.png')),(Width,Height))
+Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Play.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
+Space_background1 = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/space.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
 Yellow_spaceship_Image = pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/spaceship_yellow.png'))
 Yellow_spaceship = pygame.transform.rotate(pygame.transform.scale(Yellow_spaceship_Image,(Spaceship_width,Spaceship_height)),270)
 Red_spaceship_Image = pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/spaceship_red.png'))
@@ -136,8 +133,8 @@ Shaceship_eng_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asse
 Loaded_up_sound=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/mixkit-clock-countdown-bleeps-916.wav'))
 Loaded_up_music=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/shuttlelaunch-24467.mp3'))
 Space_image = pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.png'))
-Menu_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Menu.png')),(Width,Height))
-Game_mode_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Game_Mode.png')),(Width,Height))
+Menu_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Menu.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
+Game_mode_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
 video = cv2.VideoCapture('Space_Enforcer_2.0/Asset Project 1/SPACE ENFORCER.mp4')
 fps = video.get(cv2.CAP_PROP_FPS)
 clock = pygame.time.Clock()
@@ -157,7 +154,7 @@ def intro():
     
     vid = Video("Space_Enforcer_2.0/Asset Project 1/Space Enforcer Intro.mp4")
     
-    vid.resize((900,500))
+    vid.resize(pygame.display.get_window_size())
     pygame.display.set_caption("Space Enforcer")
     #vid.play()
     vid.toggle_mute() 
@@ -165,7 +162,8 @@ def intro():
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
     
     while vid.active:
-        
+      
+        vid.resize(pygame.display.get_window_size())
         key = None
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -197,4 +195,5 @@ def intro():
     # close video when done
     
     vid.close()
+    
 

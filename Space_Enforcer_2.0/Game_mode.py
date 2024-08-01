@@ -10,7 +10,7 @@ def draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,r
     yellow_health_text = Health_font.render("Health: " + str(yellow_health),1,Yellow)
     red_score_text = Health_font.render(str(Red_player),1,Red)
     yellow_score_text = Health_font.render("-Score-" + str(Yellow_player),1,Yellow)
-    DISPLAYSURF.blit(yellow_health_text,(Width - yellow_health_text.get_width() - 10,10))
+    DISPLAYSURF.blit(yellow_health_text,(DISPLAYSURF.get_width() - yellow_health_text.get_width() - 10,10))
     DISPLAYSURF.blit(red_health_text,(10,10))
     DISPLAYSURF.blit(Yellow_spaceship,(yellow.x, yellow.y))
     DISPLAYSURF.blit(Red_spaceship,(red.x, red.y))
@@ -26,7 +26,7 @@ def draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,r
     pygame.display.update()
 def draw_winner(text,wineer_color,Round):
     draw_text = Winner_font.render(text, 1, wineer_color)
-    DISPLAYSURF.blit(draw_text, (Width//2 - draw_text.get_width()/2,Height//2 - draw_text.get_height()//2))
+    DISPLAYSURF.blit(draw_text, (DISPLAYSURF.get_width()//2 - draw_text.get_width()/2,DISPLAYSURF.get_height()//2 - draw_text.get_height()//2))
     pygame.display.update()
     pygame.time.delay(5000)
     Explosion_sound.stop()
@@ -38,7 +38,7 @@ def draw_kill(kill_pos):
     Explosion_sound.set_volume(2)
 
 def main(): 
-    DISPLAYSURF = pygame.display.set_mode((Width, Height))
+    DISPLAYSURF = pygame.display.set_mode((DISPLAYSURF.get_width(), DISPLAYSURF.get_height()))
     pygame.display.set_caption("Space Games")
 
     background = pygame.Surface(DISPLAYSURF.get_size())
@@ -50,7 +50,7 @@ def main():
     keepPlaying = True
     clock.tick(60)
 def main2(): 
-    DISPLAYSURF = pygame.display.set_mode((Width, Height))
+    DISPLAYSURF = pygame.display.set_mode((DISPLAYSURF.get_width(), DISPLAYSURF.get_height()))
     pygame.display.set_caption("Space Games")
 
     background = pygame.Surface(DISPLAYSURF.get_size())
@@ -107,6 +107,7 @@ def main2():
                     print ("Joystick ",joysticks[event.joy].get_name(),"' b3utton")
 
 def draw_reset(Round,Start1):
+    print(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())
     while Start1:
         CVP =True
         DISPLAYSURF.blit(Menu_image,(0,0))
@@ -158,9 +159,10 @@ def draw_play(Round,Start1):
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
                     while CVP:
+                        pygame.mixer.Channel(0).fadeout(13000)
                         DISPLAYSURF.fill(Black)
                         pygame.display.update()
-                        DISPLAYSURF.blit(game_version,(20,Height//2))
+                        DISPLAYSURF.blit(game_version,(20,DISPLAYSURF.get_height()//2))
                         pygame.display.update()
                         pygame.time.delay(3000)
                         DISPLAYSURF.fill(Black)
@@ -170,7 +172,7 @@ def draw_play(Round,Start1):
                         print(Round)
                         pygame.display.update()
                         rounds = Winner_font.render("Round " + str(Round),1,White)
-                        DISPLAYSURF.blit(rounds,(Width//3,Height//2))
+                        DISPLAYSURF.blit(rounds,(DISPLAYSURF.get_width()//3,DISPLAYSURF.get_height()//2))
                         pygame.display.update()
                         pygame.time.delay(5000)
                         main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player)
@@ -193,7 +195,7 @@ def draw_play(Round,Start1):
                         pygame.mixer.Channel(0).fadeout(13000)
                         DISPLAYSURF.fill(Black)
                         pygame.display.update()
-                        DISPLAYSURF.blit(game_version,(20,Height//2))
+                        DISPLAYSURF.blit(game_version,(20,DISPLAYSURF.get_height()//2))
                         pygame.time.delay(8000)
                         DISPLAYSURF.fill(Black)
                         pygame.display.update()
@@ -202,7 +204,7 @@ def draw_play(Round,Start1):
                         print(Round)
                         pygame.display.update()
                         rounds = Winner_font.render("Round " + str(Round),1,White)
-                        DISPLAYSURF.blit(rounds,(Width//3,Height//2))
+                        DISPLAYSURF.blit(rounds,(DISPLAYSURF.get_width()//3,DISPLAYSURF.get_height()//2))
                         pygame.display.update()
                         pygame.time.delay(5000)
                         Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player,main)
@@ -211,7 +213,7 @@ def draw_play(Round,Start1):
                         score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
                         DISPLAYSURF.blit(score,(200,300))
                         pygame.display.update()
-                        pygame.time.delay(3000)
+                        
                         print(Red_player)
                         print(Yellow_player)
             if keys_pressed[pygame.K_v]:
@@ -224,7 +226,7 @@ def draw_play(Round,Start1):
                 while CVC:
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
-                    DISPLAYSURF.blit(game_version,(20,Height//2))
+                    DISPLAYSURF.blit(game_version,(20,DISPLAYSURF.get_height()//2))
                     pygame.time.delay(3000)
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
@@ -233,7 +235,7 @@ def draw_play(Round,Start1):
                     print(Round)
                     pygame.display.update()
                     rounds = Winner_font.render("Round " + str(Round),1,White)
-                    DISPLAYSURF.blit(rounds,(Width//3,Height//2))
+                    DISPLAYSURF.blit(rounds,(DISPLAYSURF.get_width()//3,DISPLAYSURF.get_height()//2))
                     pygame.display.update()
                     pygame.time.delay(5000)
                     main_CVC(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player)
@@ -257,7 +259,7 @@ def Champ_win(Champ_color,Red_player,Yellow_player):
 def draw_Champion(Champ):
     Champ_win(Champ_color)
     draw_text = Winner_font.render(Champ, 1, White)
-    DISPLAYSURF.blit(draw_text, (Width//2 - draw_text.get_width()/2,Height//2 - draw_text.get_height()//2))
+    DISPLAYSURF.blit(draw_text, (DISPLAYSURF.get_width()//2 - draw_text.get_width()/2,DISPLAYSURF.get_height()//2 - draw_text.get_height()//2))
     pygame.display.update()
     pygame.time.delay(5000)
     Explosion_sound.stop()
@@ -347,7 +349,7 @@ def main_PVP(Round,Champ,red_score_text,yellow_score_text):
 #Main game loop CPUvsP1
 def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player,main):
     pygame.display.update()
-    pygame.time.delay(3000)
+    pygame.time.delay(6000)
     pygame.mixer.Channel(0).pause
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
@@ -392,18 +394,18 @@ def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
                     PVP=False
                     break
                 if event.key==pygame.K_v and len(red_bullets)< Max_bullets:
-                    bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,Width//90,Height//100)
+                    bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,DISPLAYSURF.get_width()//90,DISPLAYSURF.get_height()//100)
                     red_bullets.append(bullet_r)
                     Spaceship_guns_sound.play()
 
                 if event.key==pygame.K_b and len(yellow_bullets)< Max_bullets:
-                    bullet_y = pygame.Rect(yellow.x, yellow.y + (yellow.height//2) -2,Width//90,Height//100)
+                    bullet_y = pygame.Rect(yellow.x, yellow.y + (yellow.height//2) -2,DISPLAYSURF.get_width()//90,DISPLAYSURF.get_height()//100)
                     yellow_bullets.append(bullet_y)
                     Spaceship_guns_sound.play()
             if event.type == pygame.JOYAXISMOTION and len(yellow_bullets)< Max_bullets:
                 joy=joy+1
                 if joy==7:
-                    bullet_y = pygame.Rect(yellow.x, yellow.y + (yellow.height//2) -2,Width//90,Height//100)
+                    bullet_y = pygame.Rect(yellow.x, yellow.y + (yellow.height//2) -2,DISPLAYSURF.get_width()//90,DISPLAYSURF.get_height()//100)
                     yellow_bullets.append(bullet_y)
                     Spaceship_guns_sound.play()
                     joy=0
@@ -465,7 +467,7 @@ def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
         pygame.display.update()
 def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player):
     pygame.display.update()
-    pygame.time.delay(3000)
+    pygame.time.delay(6000)
     pygame.mixer.Channel(0).pause
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
@@ -502,10 +504,10 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
                 if event.key==pygame.K_SPACE and len(yellow_bullets)< Max_bullets:
                     bullet_y = pygame.Rect(yellow.x, yellow.y + (yellow.height//2) -2,10,5)
                     yellow_bullets.append(bullet_y)
-                    Spaceship_guns_sound.play()
+                    Spaceship_guns_sound.play().set_volume(2.0)
 
             if event.type ==  CPU_hit:
-                Spaceship_guns_sound.play()
+                Spaceship_guns_sound.play().set_volume(2.0)
             if event.type == Red_hit:
                 red_health -= 1
                 Spaceship_hits_sound.play()
