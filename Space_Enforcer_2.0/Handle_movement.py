@@ -35,18 +35,142 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
     side=['1','2']
     ally_lis=[1,0]
     Ally=random.choice(ally_lis)
+    print("Ally: ",Ally)
     if Ally==1:
         cpu_decision=random.choice(up_down)
+        print("cpu_decision: ",cpu_decision)
+        if cpu_decision=='3'and red.y - VEL > 0:#Up
+                if yellow.y==red.y:
+                    red.y -= VEL*0
+                    if len(red_bullets)< 1:
+                        bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                        red_bullets.append(bullet_r)
+                        Spaceship_guns_sound.play()
+                        if bullet_r.x== (red.x + 2):
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                if yellow.y!=red.y:
+                    red.y += VEL
+                pygame.display.update()
+                if red.y < 15:
+                    b.append(cpu_direction)
+                    b.remove(a)
+                    bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                    red_bullets.append(bullet_r)
+                    Spaceship_guns_sound.play()
+                    if bullet_r.x== (red.x + 2):
+                        red_bullets.append(bullet_r)
+                        Spaceship_guns_sound.play()
+                        CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
+        if cpu_decision==' 'and red.y + VEL + red.height < DISPLAYSURF.get_height()-10: #Down
+                if a=='1':#Left
+                    if yellow.y==red.y:
+                        red.x -= VEL*0
+                        if len(red_bullets)< 1:
+                            bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            if bullet_r.x== (red.x + 2):
+                                red_bullets.append(bullet_r)
+                                Spaceship_guns_sound.play()
+                    if yellow.y!=red.y:
+                        red.x -= VEL
+                        #red.y -= VEL
+                    pygame.display.update()
+                    if red.x < 15:
+                        b.clear()
+                        b.append(cpu_decision)
+                        bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                        red_bullets.append(bullet_r)
+                        Spaceship_guns_sound.play()
+                        if bullet_r.x== (red.x + 2):
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
+
+
+                if a=='2':#Right
+                    if yellow.y==red.y:
+                        red.x += VEL*0
+                        if len(red_bullets)< 1 or bullet_r.x== (red.x + 2):
+                            bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            if bullet_r.x== (red.x + 2):
+                                red_bullets.append(bullet_r)
+                                Spaceship_guns_sound.play()
+                    if yellow.y!=red.y:
+                        red.x += VEL
+                    pygame.display.update()
+                    if red.x > Border.x-100:
+                        b.clear()
+                        b.append(cpu_decision)
+                        bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                        red_bullets.append(bullet_r)
+                        Spaceship_guns_sound.play()
+                        if bullet_r.x== (red.x + 2):
+                            print('338 speed')
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
     if Ally==0:
         cpu_direction=random.choice(side)
+        print("cpu_direction: ",cpu_direction)
+        if cpu_direction=='1':#Left
+                    if yellow.y==red.y:
+                        red.x -= VEL*0
+                        if len(red_bullets)< 1:
+                            bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            if bullet_r.x== (red.x + 2):
+                                red_bullets.append(bullet_r)
+                                Spaceship_guns_sound.play()
+                    if yellow.y!=red.y:
+                        red.x -= VEL
+                    pygame.display.update()
+                    if red.x < 15:
+                        red.y += VEL
+                        b.append(cpu_decision)
+                        b.remove(a)
+                        bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                        red_bullets.append(bullet_r)
+                        Spaceship_guns_sound.play()
+                        if bullet_r.x== (red.x + 2):
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
+        if cpu_direction=='2':#Right
+                    if yellow.y==red.y:
+                        red.x += VEL*0
+                        if len(red_bullets)< 1:
+                            bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            if bullet_r.x== (red.x + 2):
+                                red_bullets.append(bullet_r)
+                                Spaceship_guns_sound.play()
+                    if yellow.y!=red.y:
+                        red.x += VEL
+                    pygame.display.update()
+                    if red.x > Border.x-100:
+                        red.y -= VEL*0
+                        b.append(cpu_direction)
+                        b.remove(a)
+                        bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                        red_bullets.append(bullet_r)
+                        Spaceship_guns_sound.play()
+                        if bullet_r.x== (red.x + 2):
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+                            CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)     
     #for d in c:
     d=1
     #if handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle):
         #c=0
-    
-
     if d==1:
         for a in b:
+            print("a:",a)
             if c==1:
                 b.remove(a)
                 c=0
@@ -101,8 +225,7 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                         if bullet_r.x== (red.x + 2):
                             red_bullets.append(bullet_r)
                             Spaceship_guns_sound.play()
-                            CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-                    
+                            CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)                 
             if a=='3'and red.y - VEL > 0:#Up
                 if yellow.y==red.y:
                     red.y -= VEL*0
@@ -126,7 +249,6 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                         red_bullets.append(bullet_r)
                         Spaceship_guns_sound.play()
                         CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-
             if a=='3'and red.y + VEL + red.height < DISPLAYSURF.get_height()-10 :
                 if yellow.y==red.y:
                     red.y += VEL*0
@@ -400,22 +522,24 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
             yellow_bullets.remove(bullet)
         elif bullet.x < 0:
             yellow_bullets.remove(bullet)
-
         if cpu_paddle.colliderect(bullet):
             lim=random.choice(range(10,450,Levels//5))
+            ally_lis=[1,2]
+            Dodge_Direction=random.choice(ally_lis)
             Clip=[1,2,3,4,5]
             if Round > 5:
                 Dodge_speed=VEL
             else:
                 Dodge_speed = (float(VEL)*4) #- float(Round) *.75
-
-            if red.y <lim: #and red.y + VEL + red.height > DISPLAYSURF.get_height()-50: #Down
+            
+            if Dodge_Direction == 2 and (red.y <lim or red.y + VEL + red.height < DISPLAYSURF.get_height()-50): #Down
                 red.y=red.y+Dodge_speed
                 for ws in b:
                     k=1
                     b.remove(ws)
                     b.append('')
-                    print('271here')
+                    print('Down_Red: ',red)
+                    print('Down_B: ',b)
                     c=1
                     #CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
                     lim=lim+DISPLAYSURF.get_width()//2
@@ -427,13 +551,14 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
                         if bullet_r.x== (red.x + 2):
                             red_bullets.append(bullet_r)
                             Spaceship_guns_sound.play()
-            if red.y >= lim: # and red.y - VEL < 0:#UP 
-                red.y =red.y - Dodge_speed
-                lim=lim-10
+            if Dodge_Direction == 1 and (red.y >lim or red.y - VEL < 100): #UP
+                red.y=red.y-Dodge_speed
                 for ws in b:
                     k=1
                     b.remove(ws)
-                    b.append('3')
+                    b.append('')
+                    print('Down_Red: ',red)
+                    print('Down_B: ',b)
                     c=1
                     #CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
                     lim=lim+DISPLAYSURF.get_width()//2
@@ -442,8 +567,28 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
                         bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
                         red_bullets.append(bullet_r)
                         Spaceship_guns_sound.play()
-                        if bullet_r.x == (red.x + 20):
-                            print('338 speed')
+                        if bullet_r.x== (red.x + 2):
+                            red_bullets.append(bullet_r)
+                            Spaceship_guns_sound.play()
+
+            if Dodge_Direction == 3 and (red.y >= lim or red.y - VEL < 0):#UP 
+                red.y =red.y - Dodge_speed
+                lim=lim-20
+                for ws in b:
+                    k=1
+                    b.remove(ws)
+                    b.append('3')
+                    print('UP_Red: '+red)
+                    print('Up_B: '+b)
+                    c=1
+                    #CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
+                    lim=lim+DISPLAYSURF.get_width()//2
+                if len(red_bullets)< Max_bullets-4:
+                        bullet.x= Round+bullets_Vel
+                        bullet_r = pygame.Rect(red.x + red.width, red.y + (red.height//2) -2,10,5)
+                        red_bullets.append(bullet_r)
+                        Spaceship_guns_sound.play()
+                        if bullet_r.x == (red.x + 20): 
                             red_bullets.append(bullet_r)
                             Spaceship_guns_sound.play()
 

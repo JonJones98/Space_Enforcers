@@ -484,6 +484,8 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
     c=['']
     a=None
     c=None
+    sign_y=1
+    sign_x=1
     while run :
         draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Yellow_player,Red_player,Round)
         clock.tick(FPS)
@@ -554,9 +556,25 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
 
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, yellow)
+        if red.y  < 20: #UP
+            sign_y = sign_y  *-1
+        if red.y > DISPLAYSURF.get_height()-20: #DOWN
+            sign_y  = sign_y  *-1
+        if red.x  < 0: #UP
+            sign_x = sign_x *-1
+        if red.x > DISPLAYSURF.get_width()//2: #DOWN
+            sign_x = sign_x *-1
+        if red.y == yellow.y and red.x < DISPLAYSURF.get_width()//2:
+            red.y=red.y
+            red.x=red.x+1
+            handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,c,b)
+        else:
+           red.y=red.y-1*sign_y 
+           red.x=red.x-1*sign_x
+
         #Red_AI(sense,red)
-        if Round>-1:
-            CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
+        #if Round>-1:
+            #CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
         #red_handle_movement(keys_pressed, red)
         handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,c,b)
         #Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow)
