@@ -3,7 +3,7 @@ from Handle_movement import *
 from button import *
 
 #Draw
-def draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Yellow_player,Red_player,Round):
+def draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Round):
     DISPLAYSURF.blit(back_opt,(0,0))
     pygame.draw.rect(DISPLAYSURF,Black,Border)
     red_health_text = Health_font.render("Health: " + str(red_health),1,Red)
@@ -175,15 +175,18 @@ def draw_play(Round,Start1):
                         DISPLAYSURF.blit(rounds,(DISPLAYSURF.get_width()//3,DISPLAYSURF.get_height()//2))
                         pygame.display.update()
                         pygame.time.delay(5000)
-                        main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player)
+                        Yellow_player,Red_player = update_score(" ")
+                        red_score_text=str(Red_player)
+                        yellow_score_text=str(Yellow_player)
+                        main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels)
                         pygame.display.update()
                         DISPLAYSURF.fill(Black)
+                        Yellow_player,Red_player = update_score(" ")
                         score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
                         DISPLAYSURF.blit(score,(200,300))
                         pygame.display.update()
                         pygame.time.delay(3000)
-                        print(Red_player)
-                        print(Yellow_player)
+                        
                 if TWO_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
                     print("PVP") #Right
                     PVP=True
@@ -249,7 +252,7 @@ def draw_play(Round,Start1):
                     print(Yellow_player)   
 
     
-def Champ_win(Champ_color,Red_player,Yellow_player):
+def Champ_win(Champ_color):
     if Red_player>2:
         Champ_color =Red
         Champ = "RED IS THE CHAMPION"   
@@ -465,7 +468,7 @@ def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
         handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,c,b)
         #Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow)
         pygame.display.update()
-def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player):
+def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):
     pygame.display.update()
     pygame.time.delay(6000)
     pygame.mixer.Channel(0).pause
@@ -487,10 +490,10 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
     sign_y=1
     sign_x=1
     while run :
-        draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Yellow_player,Red_player,Round)
+        draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Round)
         clock.tick(FPS)
         cpu_paddle = pygame.Rect(red.x+10,red.y - (red.height//2),Levels+2,100)
-        #paddle.draw(cpu_paddle)
+        
         pygame.display.update()
         for event in pygame.event.get():
             pygame.display.update()     
@@ -524,38 +527,44 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
         #if Round <4 :
 
         if red_health <= -1:
-            Yellow_player+=1
-            print(Yellow_player)
+            
+            Yellow_player,Red_player=update_score("yellow")
             wineer_color = Yellow
             winner_text = "YELLOW WINS!"
             kill_pos = red
-
+            
         if yellow_health <= -1:
-            Red_player+=1
+            Yellow_player,Red_player = update_score("red")
             wineer_color = Red
             winner_text = "RED WINS!"
             kill_pos = yellow
             Round-=1
+            
             
 
         if winner_text !="":
             draw_kill(kill_pos)
             draw_winner(winner_text,wineer_color,Round)
             if winner_text == "YELLOW WINS!":
-                Red_player=Red_player+1
+                Red_player+=1
+                #update_score("red",)
                 pygame.display.update()
+                print('RED SRCORE',Red_player)
+                
             if winner_text == "YELLOW WINS!":
-                Yellow_player=Yellow_player+1
+                Yellow_player+=1
+                print('YELLOW SRCORE',Yellow_player)
+                #update_score("yellow",)
                 pygame.display.update()
             break
-        #if Round >3:
-            #Champ_win(Champ_color,Red_player,Yellow_player)
-            #draw_Champion(Champ)
-            #break
+        if Round >3:
+            draw_Champion(update_score("high"))
+            break
         
 
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, yellow)
+        #Red Handle Movement
         if red.y  < 20: #UP
             sign_y = sign_y  *-1
         if red.y > DISPLAYSURF.get_height()-20: #DOWN
@@ -565,9 +574,11 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
         if red.x > DISPLAYSURF.get_width()//2: #DOWN
             sign_x = sign_x *-1
         if red.y == yellow.y and red.x < DISPLAYSURF.get_width()//2:
-            red.y=red.y
-            red.x=red.x+1
-            handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,c,b)
+            red.x=red.x+2
+            if len(red_bullets)< 1: #Max_bullets:
+                bullet_y = pygame.Rect(red.x, red.y + (red.height//2) -2,10,5)
+                red_bullets.append(bullet_y)
+            
         else:
            red.y=red.y-1*sign_y 
            red.x=red.x-1*sign_x

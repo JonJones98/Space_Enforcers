@@ -593,10 +593,29 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
                             Spaceship_guns_sound.play()
 
     for bullet in red_bullets:
-        bullet.x += bullets_Vel     
+        bullet.x += bullets_Vel + 5    
         if yellow.colliderect(bullet):
             pygame.event.post(pygame.event.Event(Yellow_hit))
             red_bullets.remove(bullet)
         elif bullet.x > DISPLAYSURF.get_width():
             red_bullets.remove(bullet)
 
+#CPU Movements
+def Cpu_Handle(red,yellow,sign_y,sign_x,red_bullets,Max_bullets):
+    
+    if red.y == yellow.y and red.x < DISPLAYSURF.get_width()//2:
+        red.x=red.x+2
+        if len(red_bullets)< 1: #Max_bullets:
+            bullet_y = pygame.Rect(red.x, red.y + (red.height//2) -2,10,5)
+            red_bullets.append(bullet_y)
+    if red.y  < 20: #UP
+            sign_y = sign_y  *-1
+    if red.y > DISPLAYSURF.get_height()-20: #DOWN
+        sign_y  = sign_y  *-1
+    if red.x  < 0: #UP
+        sign_x = sign_x *-1
+    if red.x > DISPLAYSURF.get_width()//2: #DOWN
+        sign_x = sign_x *-1
+    else:
+        red.y=red.y-1*sign_y 
+        red.x=red.x-1*sign_x

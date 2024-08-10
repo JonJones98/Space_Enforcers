@@ -33,8 +33,6 @@ global Yellow_hit
 global Red_hit
 global CPU_hit
 global Round
-global Red_player
-global Yellow_player
 global red_score_text
 global yellow_score_text
 global b 
@@ -78,7 +76,7 @@ Champ_color = None
 Champ = ""
 
 #Game Settings
-FPS = 70
+FPS = 90
 VEL = 8
 bullets_Vel = DISPLAYSURF.get_width() // 100
 Max_bullets = 5
@@ -87,8 +85,8 @@ Yellow_hit = pygame.USEREVENT + 1
 Red_hit = pygame.USEREVENT + 2
 CPU_hit = pygame.USEREVENT + 3
 Round = 0
-Red_player = int(0)
-Yellow_player = int(0)
+Red_player=0
+Yellow_player=0
 red_score_text = ""
 yellow_score_text = ""
 b = ""
@@ -147,7 +145,22 @@ if Round>2:
     back_opt=back[1]
 else:
     back_opt=back[Round-1]
-       
+def update_score(player):
+    global Red_player
+    global Yellow_player
+    if player == "red":
+        Red_player+=1
+    if player == "yellow":
+        Yellow_player+=1
+    if player == "high":
+        if Yellow_player > Red_player:
+            return("YELLOW IS THE CHAMPION")
+        else:
+            return("RED IS THE CHAMPION")
+    print('YELLOW SRCORE',Yellow_player)
+    print('RED SRCORE',Red_player)
+    return Yellow_player, Red_player
+
 def intro():
     
     # create video object
