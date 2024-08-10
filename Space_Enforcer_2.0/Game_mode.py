@@ -8,8 +8,8 @@ def draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,r
     pygame.draw.rect(DISPLAYSURF,Black,Border)
     red_health_text = Health_font.render("Health: " + str(red_health),1,Red)
     yellow_health_text = Health_font.render("Health: " + str(yellow_health),1,Yellow)
-    red_score_text = Health_font.render(str(Red_player),1,Red)
-    yellow_score_text = Health_font.render("-Score-" + str(Yellow_player),1,Yellow)
+    red_score_text = Health_font.render(str(red_score_text),1,Red)
+    yellow_score_text = Health_font.render("-Score-" + str(yellow_score_text),1,Yellow)
     DISPLAYSURF.blit(yellow_health_text,(DISPLAYSURF.get_width() - yellow_health_text.get_width() - 10,10))
     DISPLAYSURF.blit(red_health_text,(10,10))
     DISPLAYSURF.blit(Yellow_spaceship,(yellow.x, yellow.y))
@@ -154,11 +154,15 @@ def draw_play(Round,Start1):
                     draw_reset(Round,Start1)
                 if ONE_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
                     print("CVP") #Left
+                    Round=0
                     CVP=True
                     game_version = Winner_font.render("Player vs CPU",1,White)
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
                     while CVP:
+                        if Round >2:
+                            draw_Champion(update_score("high"))
+                            break
                         pygame.mixer.Channel(0).fadeout(13000)
                         DISPLAYSURF.fill(Black)
                         pygame.display.update()
@@ -178,10 +182,13 @@ def draw_play(Round,Start1):
                         Yellow_player,Red_player = update_score(" ")
                         red_score_text=str(Red_player)
                         yellow_score_text=str(Yellow_player)
+                        print("Checking Score text 181",red_score_text,yellow_score_text)
                         main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels)
+                        
                         pygame.display.update()
                         DISPLAYSURF.fill(Black)
                         Yellow_player,Red_player = update_score(" ")
+                        print("Checking SCore,",Yellow_player,Red_player)
                         score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
                         DISPLAYSURF.blit(score,(200,300))
                         pygame.display.update()
@@ -189,6 +196,7 @@ def draw_play(Round,Start1):
                         
                 if TWO_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
                     print("PVP") #Right
+                    Round=0
                     PVP=True
                     game_version=Health_font.render("Plaver vs Player",1,White)
                     pygame.display.update()
@@ -220,36 +228,48 @@ def draw_play(Round,Start1):
                         print(Red_player)
                         print(Yellow_player)
             if keys_pressed[pygame.K_v]:
-                print("CVC") #Right
-                CVC=True
-                game_version=Health_font.render("Computer vs Computer",1,White)
-                pygame.display.update()
-                DISPLAYSURF.fill(Black)
-                pygame.display.update()
-                while CVC:
+                    print("CVC") #Left
+                    Round=0
+                    CVP=True
+                    game_version = Winner_font.render("CPU vs CPU",1,White)
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
-                    DISPLAYSURF.blit(game_version,(20,DISPLAYSURF.get_height()//2))
-                    pygame.time.delay(3000)
-                    DISPLAYSURF.fill(Black)
-                    pygame.display.update()
-                    Round+=1
-                    Levels=Round*50
-                    print(Round)
-                    pygame.display.update()
-                    rounds = Winner_font.render("Round " + str(Round),1,White)
-                    DISPLAYSURF.blit(rounds,(DISPLAYSURF.get_width()//3,DISPLAYSURF.get_height()//2))
-                    pygame.display.update()
-                    pygame.time.delay(5000)
-                    main_CVC(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player)
-                    pygame.display.update()
-                    DISPLAYSURF.fill(Black)
-                    score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
-                    DISPLAYSURF.blit(score,(200,300))
-                    pygame.display.update()
-                    pygame.time.delay(3000)
-                    print(Red_player)
-                    print(Yellow_player)   
+                    while CVP:
+                        if Round >200:
+                            draw_Champion(update_score("high"))
+                            break
+                        pygame.mixer.Channel(0).fadeout(13000)
+                        DISPLAYSURF.fill(Black)
+                        pygame.display.update()
+                        DISPLAYSURF.blit(game_version,(20,DISPLAYSURF.get_height()//2))
+                        pygame.display.update()
+                        pygame.time.delay(3000)
+                        DISPLAYSURF.fill(Black)
+                        pygame.display.update()
+                        Round+=1
+                        Levels=Round*50
+                        print(Round)
+                        pygame.display.update()
+                        rounds = Winner_font.render("Round " + str(Round),1,White)
+                        DISPLAYSURF.blit(rounds,(DISPLAYSURF.get_width()//3,DISPLAYSURF.get_height()//2))
+                        pygame.display.update()
+                        pygame.time.delay(5000)
+                        Yellow_player,Red_player = update_score(" ")
+                        red_score_text=str(Red_player)
+                        yellow_score_text=str(Yellow_player)
+                        print("Checking Score text 181",red_score_text,yellow_score_text)
+                        main_CVC2(Round,Champ,red_score_text,yellow_score_text,Levels)
+                        
+                        pygame.display.update()
+                        DISPLAYSURF.fill(Black)
+                        Yellow_player,Red_player = update_score(" ")
+                        print("Checking SCore,",Yellow_player,Red_player)
+                        score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
+                        DISPLAYSURF.blit(score,(200,300))
+                        pygame.display.update()
+                        pygame.time.delay(3000)
+
+                
 
     
 def Champ_win(Champ_color):
@@ -260,6 +280,7 @@ def Champ_win(Champ_color):
         Champ ='YELLOW IS THE CHAMPION'
         Champ_color=Yellow
 def draw_Champion(Champ):
+    DISPLAYSURF.fill(Black)
     Champ_win(Champ_color)
     draw_text = Winner_font.render(Champ, 1, White)
     DISPLAYSURF.blit(draw_text, (DISPLAYSURF.get_width()//2 - draw_text.get_width()/2,DISPLAYSURF.get_height()//2 - draw_text.get_height()//2))
@@ -468,7 +489,7 @@ def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
         handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,c,b)
         #Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow)
         pygame.display.update()
-def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):
+def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):  
     pygame.display.update()
     pygame.time.delay(6000)
     pygame.mixer.Channel(0).pause
@@ -489,6 +510,7 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):
     c=None
     sign_y=1
     sign_x=1
+    print("Checking Score text 495",red_score_text,yellow_score_text)
     while run :
         draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Round)
         clock.tick(FPS)
@@ -509,8 +531,8 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):
                 if event.key==pygame.K_SPACE and len(yellow_bullets)< Max_bullets:
                     bullet_y = pygame.Rect(yellow.x, yellow.y + (yellow.height//2) -2,10,5)
                     yellow_bullets.append(bullet_y)
-                    Spaceship_guns_sound.play().set_volume(2.0)
-
+                    Spaceship_guns_sound.play()
+ 
             if event.type ==  CPU_hit:
                 Spaceship_guns_sound.play().set_volume(2.0)
             if event.type == Red_hit:
@@ -557,15 +579,13 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):
                 #update_score("yellow",)
                 pygame.display.update()
             break
-        if Round >3:
-            draw_Champion(update_score("high"))
-            break
+        
         
 
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, yellow)
         #Red Handle Movement
-        if red.y  < 20: #UP
+        if red.y  < 50: #UP
             sign_y = sign_y  *-1
         if red.y > DISPLAYSURF.get_height()-20: #DOWN
             sign_y  = sign_y  *-1
@@ -590,6 +610,142 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):
         handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,c,b)
         #Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow)
         pygame.display.update()
+
+def main_CVC2(Round,Champ,red_score_text,yellow_score_text,Levels):  
+    pygame.display.update()
+    pygame.time.delay(6000)
+    pygame.mixer.Channel(0).pause
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_2.0/Asset Project 1', 'new.mp3')),loops=-1,fade_ms=3000)
+    red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
+    yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
+    yellow_bullets =[]
+    red_bullets =[]
+    red_health = 10
+    yellow_health =10
+    clock = pygame.time.Clock()
+    run = True
+    dog =False
+    S = run
+    b=['']
+    c=['']
+    a=None
+    c=None
+    
+    sign_y=-1
+    sign_x=1
+    ysign_y=1
+    ysign_x=1
+    while run :
+        draw_window(red,yellow,red_bullets,yellow_bullets,red_health,yellow_health,red_score_text,yellow_score_text,Round)
+        clock.tick(FPS)
+        cpu_paddle = pygame.Rect(red.x+10,red.y - (red.height//2),Levels+2,100)
+        
+        pygame.display.update()
+        for event in pygame.event.get():
+            pygame.display.update()     
+            if event.type ==pygame.QUIT:
+                run = False
+                Start = False
+                Start1 =False
+                pygame.quit
+                sys.exit()
+            pygame.display.update()
+ 
+            if event.type ==  CPU_hit:
+                Spaceship_guns_sound.play().set_volume(2.0)
+            if event.type == Red_hit:
+                red_health -= 1
+                Spaceship_hits_sound.play()
+
+            if event.type == Yellow_hit:
+                yellow_health -=1
+                Spaceship_hits_sound.play()
+
+        winner_text = ""
+        wineer_color = None
+        Champ_color = None
+        #if Round <4 :
+
+        if red_health <= -1:
+            
+            Yellow_player,Red_player=update_score("yellow")
+            wineer_color = Yellow
+            winner_text = "YELLOW WINS!"
+            kill_pos = red
+            
+        if yellow_health <= -1:
+            Yellow_player,Red_player = update_score("red")
+            wineer_color = Red
+            winner_text = "RED WINS!"
+            kill_pos = yellow
+            Round-=1
+            
+            
+
+        if winner_text !="":
+            draw_kill(kill_pos)
+            draw_winner(winner_text,wineer_color,Round)
+            if winner_text == "YELLOW WINS!":
+                Red_player+=1
+                #update_score("red",)
+                pygame.display.update()
+                print('RED SRCORE',Red_player)
+                
+            if winner_text == "YELLOW WINS!":
+                Yellow_player+=1
+                print('YELLOW SRCORE',Yellow_player)
+                #update_score("yellow",)
+                pygame.display.update()
+            break
+        
+        
+
+        
+        #Red Handle Movement
+        if red.y  < 20: #UP
+            sign_y = sign_y  *-1
+        elif red.y > DISPLAYSURF.get_height()-20: #DOWN
+            sign_y  = sign_y  *-1
+        if red.x  < 10: #UP
+            sign_x = sign_x *-1
+        elif red.x > DISPLAYSURF.get_width()//2: #DOWN
+            sign_x = sign_x *-1
+        if red.y == yellow.y and red.x < (DISPLAYSURF.get_width()//2)-20:
+            red.x=red.x+2
+            print("red tracking")
+            if len(red_bullets)< 1: #Max_bullets:
+                print("red loading")
+                bullet_y = pygame.Rect(red.x, red.y + (red.height//2) -2,10,5)
+                red_bullets.append(bullet_y)
+            
+        else:
+           red.y=red.y-1*sign_y 
+           red.x=red.x-1*sign_x
+        #Yellow Handle Movement
+        if yellow.y  <= 0: #UP
+            ysign_y = ysign_y  *-1
+        if yellow.y > DISPLAYSURF.get_height()-20: #DOWN
+            ysign_y  = ysign_y  *-1
+        if yellow.x  < DISPLAYSURF.get_width()//2: #UP
+            ysign_x = ysign_x *-1
+        if yellow.x > DISPLAYSURF.get_width(): #DOWN
+            ysign_x = ysign_x *-1
+        if yellow.y == red.y and yellow.x > 20+DISPLAYSURF.get_width()//2:
+            yellow.x=yellow.x-2
+            print("yellow tracking")
+            if len(yellow_bullets)< 2: #Max_bullets:
+                print("yellow loading")
+                bullet_s = pygame.Rect(yellow.x, yellow.y + (yellow.height//2) -2,10,5)
+                yellow_bullets.append(bullet_s)
+            
+        else:
+           yellow.y=yellow.y-1*ysign_y 
+           yellow.x=yellow.x-1*ysign_x
+
+        handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,c,b)
+        pygame.display.update()
+
+
 def main_CVC(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player):
     pygame.display.update()
     pygame.time.delay(3000)

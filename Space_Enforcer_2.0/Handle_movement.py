@@ -516,7 +516,7 @@ def Computer_player(red,keys_pressed,yellow_bullets,red_bullets,yellow):
 #Ammo Movements
 def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
     for bullet in yellow_bullets:
-        bullet.x -= bullets_Vel
+        bullet.x -= bullets_Vel+20
         if red.colliderect(bullet):
             pygame.event.post(pygame.event.Event(Red_hit))
             yellow_bullets.remove(bullet)
@@ -532,7 +532,7 @@ def handle_bullets(yellow_bullets,red_bullets,yellow,red,cpu_paddle,Levels,a,b):
             else:
                 Dodge_speed = (float(VEL)*4) #- float(Round) *.75
             
-            if Dodge_Direction == 2 and (red.y <lim or red.y + VEL + red.height < DISPLAYSURF.get_height()-50): #Down
+            if Dodge_Direction == 2 and (red.y <lim or red.y + VEL + red.height < DISPLAYSURF.get_height()-100): #Down
                 red.y=red.y+Dodge_speed
                 for ws in b:
                     k=1

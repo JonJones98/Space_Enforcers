@@ -3,7 +3,7 @@ from Settings import *
  
 Red_player
 Yellow_player
-intro() 
+#intro() 
 pygame.display.update() 
 draw_reset(Round,Start1)
 pygame.display.update()
