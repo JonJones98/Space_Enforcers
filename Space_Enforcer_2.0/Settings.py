@@ -102,17 +102,17 @@ Default_font = pygame.font.SysFont("Roboto", 40)
 
 #Buttons
 image_hover = pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button_Hover.png")
-PLAY_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 150), 
+PLAY_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
                             text_input="PLAY", font=Default_font, base_color="Black", hovering_color="Black")
-OPTIONS_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"), image_hover=image_hover,pos=(450, 250), 
+OPTIONS_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"), image_hover=image_hover,pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
                             text_input="OPTIONS", font=Default_font, base_color="Black", hovering_color="Black")
-QUIT_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 350), 
+QUIT_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
                             text_input="QUIT", font=Default_font, base_color="Black", hovering_color="Black")
-ONE_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 150), 
+ONE_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
                             text_input="1 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
-TWO_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 250), 
+TWO_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
                             text_input="2 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
-MENU_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(450, 350), 
+MENU_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
                             text_input="MENU", font=Default_font, base_color="Black", hovering_color="Black")
 
 #Imported images

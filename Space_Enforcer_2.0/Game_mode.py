@@ -108,17 +108,22 @@ def main2():
 
 def draw_reset(Round,Start1):
     print(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())
+    
     while Start1:
+        print(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())
+        PLAY_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
+                            text_input="PLAY", font=Default_font, base_color="Black", hovering_color="Black")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"), image_hover=image_hover,pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
+                            text_input="OPTIONS", font=Default_font, base_color="Black", hovering_color="Black")
+        QUIT_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
+                            text_input="QUIT", font=Default_font, base_color="Black", hovering_color="Black")
         CVP =True
-        DISPLAYSURF.blit(Menu_image,(0,0))
+        DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Menu.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
         MENU_MOUSE_POS = pygame.mouse.get_pos()
-
         for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS,DISPLAYSURF)
             button.update(DISPLAYSURF)
-       
         for event in pygame.event.get():
-            
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -131,13 +136,19 @@ def draw_reset(Round,Start1):
                     print("Quit",MENU_MOUSE_POS,QUIT_BUTTON.checkForInput(MENU_MOUSE_POS))
                     pygame.quit()
                     sys.exit()
-
+    
         pygame.display.update()
 
 def draw_play(Round,Start1):
     while Start1:
         CVP =True
-        DISPLAYSURF.blit(Game_mode_image,(0,0))
+        DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_2.0/Asset Project 1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
+        ONE_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
+                            text_input="1 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
+        TWO_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
+                            text_input="2 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
+        MENU_BUTTON = Button(image=pygame.image.load("Space_Enforcer_2.0/Asset Project 1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
+                            text_input="MENU", font=Default_font, base_color="Black", hovering_color="Black")
         GAME_MODE_MOUSE_POS = pygame.mouse.get_pos()
         for button in [ONE_PLAYER_BUTTON, TWO_PLAYER_BUTTON, MENU_BUTTON]:
             button.changeColor(GAME_MODE_MOUSE_POS,DISPLAYSURF)
