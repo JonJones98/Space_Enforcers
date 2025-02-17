@@ -788,19 +788,19 @@ def Champ_win(Champ_color,Red_player,Yellow_player):
 
     
 #Imported image
-Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1\Play.png')),(Width,Height))
-Space_background1 = pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1\space.png')),(Width,Height))
-Yellow_spaceship_Image = pygame.image.load(os.path.abspath('Asset_Project_1\spaceship_yellow.png'))
+Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1\Play.png')),(Width,Height))
+Space_background1 = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1\space.png')),(Width,Height))
+Yellow_spaceship_Image = pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1\spaceship_yellow.png'))
 Yellow_spaceship = pygame.transform.rotate(pygame.transform.scale(Yellow_spaceship_Image,(Spaceship_width,Spaceship_height)),270)
-Red_spaceship_Image = pygame.image.load(os.path.abspath('Asset_Project_1\spaceship_red.png'))
+Red_spaceship_Image = pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1\spaceship_red.png'))
 Red_spaceship = pygame.transform.rotate(pygame.transform.scale(Red_spaceship_Image,(Spaceship_width,Spaceship_height)),90)
-Spaceship_guns_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1\Assets_Gun+Silencer.mp3'))
-Spaceship_hits_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1\Assets_Grenade+1.mp3'))
-Space_End_image = pygame.image.load(os.path.abspath('Asset_Project_1\Explosion_ship.png'))
+Spaceship_guns_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1\Assets_Gun+Silencer.mp3'))
+Spaceship_hits_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1\Assets_Grenade+1.mp3'))
+Space_End_image = pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1\Explosion_ship.png'))
 Space_End = pygame.transform.scale(Space_End_image,(Spaceship_width,Spaceship_height))
-Explosion_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1\ES_Sci Fi Explosion 4 - SFX Producer.mp3'))
-Shaceship_eng_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1\Rocket-sound-effect.mp3'))
-Loaded_up_sound=pygame.mixer.Sound(os.path.abspath('Asset_Project_1\mixkit-clock-countdown-bleeps-916.wav'))
+Explosion_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1\ES_Sci Fi Explosion 4 - SFX Producer.mp3'))
+Shaceship_eng_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1\Rocket-sound-effect.mp3'))
+Loaded_up_sound=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1\mixkit-clock-countdown-bleeps-916.wav'))
 back=[Space_background1,Space_background]
 if Round>2:
     back_opt=back[1]
@@ -1202,7 +1202,7 @@ loading=[5,4,3,2,1]
     #pygame.time.delay(1000)
     #DISPLAYSURF.fill(Black)
     #pygame.display.update()
-pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Python 3.10\Asset_Project_1', 'New.mp3')),loops=-1)
+pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Python 3.10\Space_Enforcer_env/Asset_Project_1', 'New.mp3')),loops=-1)
 Start1=True
 draw_reset(Round,Start1)
 pygame.display.update()

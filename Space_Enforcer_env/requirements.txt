@@ -1,0 +1,11 @@
+numpy
+pygame
+PyAudio
+pysubs2
+yt_dlp
+imageio
+opencv_python
+pyglet
+PySide6
+PyQt6
+PyInstaller
