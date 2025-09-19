@@ -1,7 +1,7 @@
 # IMPORTS
 # from _typeshed import Self
 from types import NoneType
-import pygame, sys
+import pygame
 import os
 import time
 import random
@@ -101,39 +101,39 @@ Reset_font = pygame.font.SysFont("Roboto", 60)
 Default_font = pygame.font.SysFont("Roboto", 40)
 
 #Buttons
-image_hover = pygame.image.load(os.path.abspath("Space_Enforcer_env/Asset_Project_1/Button_Hover.png"))
-PLAY_BUTTON = Button(image=pygame.image.load(os.path.abspath("Space_Enforcer_env/Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
+image_hover = pygame.image.load(os.path.abspath("Asset_Project_1/Button_Hover.png"))
+PLAY_BUTTON = Button(image=pygame.image.load(os.path.abspath("Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
                             text_input="PLAY", font=Default_font, base_color="Black", hovering_color="Black")
-OPTIONS_BUTTON = Button(image=pygame.image.load(os.path.abspath("Space_Enforcer_env/Asset_Project_1/Button.png")), image_hover=image_hover,pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
+OPTIONS_BUTTON = Button(image=pygame.image.load(os.path.abspath("Asset_Project_1/Button.png")), image_hover=image_hover,pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
                             text_input="OPTIONS", font=Default_font, base_color="Black", hovering_color="Black")
-QUIT_BUTTON = Button(image=pygame.image.load(os.path.abspath("Space_Enforcer_env/Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
+QUIT_BUTTON = Button(image=pygame.image.load(os.path.abspath("Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
                             text_input="QUIT", font=Default_font, base_color="Black", hovering_color="Black")
-ONE_PLAYER_BUTTON = Button(image=pygame.image.load(os.path.abspath("Space_Enforcer_env/Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
+ONE_PLAYER_BUTTON = Button(image=pygame.image.load(os.path.abspath("Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
                             text_input="1 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
-TWO_PLAYER_BUTTON = Button(image=pygame.image.load(os.path.abspath("Space_Enforcer_env/Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
+TWO_PLAYER_BUTTON = Button(image=pygame.image.load(os.path.abspath("Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
                             text_input="2 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
-MENU_BUTTON = Button(image=pygame.image.load(os.path.abspath("Space_Enforcer_env/Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
+MENU_BUTTON = Button(image=pygame.image.load(os.path.abspath("Asset_Project_1/Button.png")),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
                             text_input="MENU", font=Default_font, base_color="Black", hovering_color="Black")
 
 #Imported images
-Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Play.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
-Space_background1 = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/space.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
-Yellow_spaceship_Image = pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/spaceship_yellow.png'))
+Space_background = pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1/Play.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
+Space_background1 = pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1/space.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
+Yellow_spaceship_Image = pygame.image.load(os.path.abspath('Asset_Project_1/spaceship_yellow.png'))
 Yellow_spaceship = pygame.transform.rotate(pygame.transform.scale(Yellow_spaceship_Image,(Spaceship_width,Spaceship_height)),270)
-Red_spaceship_Image = pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/spaceship_red.png'))
+Red_spaceship_Image = pygame.image.load(os.path.abspath('Asset_Project_1/spaceship_red.png'))
 Red_spaceship = pygame.transform.rotate(pygame.transform.scale(Red_spaceship_Image,(Spaceship_width,Spaceship_height)),90)
-Spaceship_guns_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Assets_Gun+Silencer.mp3'))
-Spaceship_hits_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Assets_Grenade+1.mp3'))
-Space_End_image = pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Explosion_ship.png'))
+Spaceship_guns_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1/Assets_Gun+Silencer.mp3'))
+Spaceship_hits_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1/Assets_Grenade+1.mp3'))
+Space_End_image = pygame.image.load(os.path.abspath('Asset_Project_1/Explosion_ship.png'))
 Space_End = pygame.transform.scale(Space_End_image,(Spaceship_width,Spaceship_height))
-Explosion_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1/ES_Sci Fi Explosion 4 - SFX Producer.mp3'))
-Shaceship_eng_sound =pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Rocket-sound-effect.mp3'))
-Loaded_up_sound=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1/mixkit-clock-countdown-bleeps-916.wav'))
-Loaded_up_music=pygame.mixer.Sound(os.path.abspath('Space_Enforcer_env/Asset_Project_1/shuttlelaunch-24467.mp3'))
-Space_image = pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/SPACE ENFORCER.png'))
-Menu_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Menu.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
-Game_mode_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
-video = cv2.VideoCapture(os.path.abspath('Space_Enforcer_env/Asset_Project_1/SPACE ENFORCER.mp4'))
+Explosion_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1/ES_Sci Fi Explosion 4 - SFX Producer.mp3'))
+Shaceship_eng_sound =pygame.mixer.Sound(os.path.abspath('Asset_Project_1/Rocket-sound-effect.mp3'))
+Loaded_up_sound=pygame.mixer.Sound(os.path.abspath('Asset_Project_1/mixkit-clock-countdown-bleeps-916.wav'))
+Loaded_up_music=pygame.mixer.Sound(os.path.abspath('Asset_Project_1/shuttlelaunch-24467.mp3'))
+Space_image = pygame.image.load(os.path.abspath('Asset_Project_1/SPACE ENFORCER.png'))
+Menu_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1/Menu.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
+Game_mode_image = pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height()))
+video = cv2.VideoCapture(os.path.abspath('Asset_Project_1/SPACE ENFORCER.mp4'))
 fps = video.get(cv2.CAP_PROP_FPS)
 clock = pygame.time.Clock()
 clock.tick(fps)
@@ -164,14 +164,14 @@ def update_score(player):
 def intro():
     
     # create video object
-    video_intro=os.path.join('Space_Enforcer_env/Asset_Project_1/Space Enforcer Intro.mp4')
-    video_intro = Video(os.path.join("Space_Enforcer_env/Asset_Project_1/Space Enforcer Intro.mp4"))
-    
+    video_intro=os.path.join('Asset_Project_1/Space Enforcer Intro.mp4')
+    video_intro = Video(os.path.join("Asset_Project_1/Space Enforcer Intro.mp4"))
+
     video_intro.resize(pygame.display.get_window_size())
     pygame.display.set_caption("Space Enforcer")
     video_intro.play()
-    video_intro.toggle_mute() 
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_env/Asset_Project_1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
+    video_intro.toggle_mute()
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
     
     while video_intro.active:
       
@@ -193,7 +193,7 @@ def intro():
             pygame.display.update()
             video_intro.close()
             pygame.time.delay(1000)
-            pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_env/Asset_Project_1', 'Space_sound.mp3')),loops=-1,fade_ms=2000)
+            pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'Space_sound.mp3')),loops=-1,fade_ms=2000)
 
     
         # only draw new frames, and only update the screen if something is drawn

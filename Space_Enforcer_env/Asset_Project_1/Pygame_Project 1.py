@@ -7,8 +7,8 @@ pygame.display.set_caption("First Game!")
 
 WHITE =(255,255,255)
 FPS = 60
-YELLOW_SHACESHIP_IMAGE = pygame.image.load(os.path.join('Space_Enforcer_env/Asset_Project_1','spaceship_yellow'))
-RED_SHACESHIP_IMAGE = pygame.image.load(os.path.join('Space_Enforcer_env/Asset_Project_1','spaceship_red'))
+YELLOW_SHACESHIP_IMAGE = pygame.image.load(os.path.join('Asset_Project_1','spaceship_yellow'))
+RED_SHACESHIP_IMAGE = pygame.image.load(os.path.join('Asset_Project_1','spaceship_red'))
 
 def draw_window():
     WIN.fill(WHITE, rect=None, special_flags=0)

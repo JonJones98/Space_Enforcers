@@ -1,3 +1,4 @@
+import sys
 from Settings import *
 from Handle_movement import *
 from button import *
@@ -109,27 +110,27 @@ def main2():
 def loading_screen():
     
     # create video object
-    video_intro=os.path.join('Space_Enforcer_env/Asset_Project_1/LoadingScreen.mp4')
-    video_intro = Video(os.path.join("Space_Enforcer_env/Asset_Project_1/LoadingScreen.mp4"))
-    
+    video_intro=os.path.join('Asset_Project_1/LoadingScreen.mp4')
+    video_intro = Video(os.path.join("Asset_Project_1/LoadingScreen.mp4"))
+
     video_intro.resize(pygame.display.get_window_size())
     pygame.display.set_caption("Space Enforcer")
     video_intro.play()
     video_intro.toggle_mute() 
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_env/Asset_Project_1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'Space_sound.mp3')),loops=-1,fade_ms=15000)
     pygame.display.update()
     # close video when done
 
 def draw_reset(Round,Start1):
     while Start1:
-        PLAY_BUTTON = Button(image=pygame.image.load("Space_Enforcer_env/Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
+        PLAY_BUTTON = Button(image=pygame.image.load("Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
                             text_input="PLAY", font=Default_font, base_color="Black", hovering_color="Black")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("Space_Enforcer_env/Asset_Project_1/Button.png"), image_hover=image_hover,pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
+        OPTIONS_BUTTON = Button(image=pygame.image.load("Asset_Project_1/Button.png"), image_hover=image_hover,pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
                             text_input="OPTIONS", font=Default_font, base_color="Black", hovering_color="Black")
-        QUIT_BUTTON = Button(image=pygame.image.load("Space_Enforcer_env/Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
+        QUIT_BUTTON = Button(image=pygame.image.load("Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//1.45), 
                             text_input="QUIT", font=Default_font, base_color="Black", hovering_color="Black")
         CVP =True
-        DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Menu.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
+        DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1/Menu.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
         MENU_MOUSE_POS = pygame.mouse.get_pos()
         for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS,DISPLAYSURF)
@@ -152,17 +153,18 @@ def draw_play(Round,Start1):
     while Start1:
         CVP =True
         DISPLAYSURF.blit(Menu_image,(0,0))
-        ONE_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_env/Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
+        ONE_PLAYER_BUTTON = Button(image=pygame.image.load("Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//3.333333), 
                             text_input="1 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
-        TWO_PLAYER_BUTTON = Button(image=pygame.image.load("Space_Enforcer_env/Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
+        TWO_PLAYER_BUTTON = Button(image=pygame.image.load("Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2), 
                             text_input="2 PLAYER", font=Default_font, base_color="Black", hovering_color="Black")
-        MENU_BUTTON = Button(image=pygame.image.load("Space_Enforcer_env/Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2),
+        MENU_BUTTON = Button(image=pygame.image.load("Asset_Project_1/Button.png"),image_hover=image_hover, pos=(DISPLAYSURF.get_width()//2, DISPLAYSURF.get_height()//2),
                             text_input="MENU", font=Default_font, base_color="Black", hovering_color="Black")
         GAME_MODE_MOUSE_POS = pygame.mouse.get_pos()
         for button in [MENU_BUTTON,ONE_PLAYER_BUTTON]:
             button.changeColor(GAME_MODE_MOUSE_POS,DISPLAYSURF)
             button.update(DISPLAYSURF)
         pygame.display.update()
+        
         for event in pygame.event.get():
             keys_pressed = pygame.key.get_pressed()
             if event.type == pygame.QUIT:
@@ -180,15 +182,19 @@ def draw_play(Round,Start1):
                     DISPLAYSURF.fill(Black)
                     pygame.display.update()
                     while CVP:
+                        pygame.mixer.Channel(0).fadeout(5000)
+                        pygame.mixer.Channel(1).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'Rocket-sound-effect.mp3')),fade_ms=10000) 
                         if Round >2:
                             draw_Champion(update_score("high"))
+                            pygame.mixer.Channel(0).stop()
+                            pygame.mixer.Channel(1).stop()
                             break
                         pygame.mixer.Channel(0).fadeout(13000)
                         pygame.display.update()
                         DISPLAYSURF.blit(game_version,(20,DISPLAYSURF.get_height()//2))
                         pygame.display.update()
                         DISPLAYSURF.fill(Black)
-                        pygame.time.delay(3000)
+                        pygame.time.delay(2000)
                         pygame.display.update()
                         Round+=1
                         Levels=Round*50
@@ -203,18 +209,23 @@ def draw_play(Round,Start1):
                         yellow_score_text=str(Yellow_player)
                         print("Checking Score text 181",red_score_text,yellow_score_text)
                         DISPLAYSURF.fill(Black)
-                        #DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
+                        #DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
+                        pygame.mixer.Channel(1).stop()
                         main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels)
                         
                         pygame.display.update()
-                        DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Space_Enforcer_env/Asset_Project_1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
+                        DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load(os.path.abspath('Asset_Project_1/Game_Mode.png')),(DISPLAYSURF.get_width(),DISPLAYSURF.get_height())),(0,0))
                         Yellow_player,Red_player = update_score(" ")
                         print("Checking Score,",Yellow_player,Red_player)
                         score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
                         DISPLAYSURF.blit(score,(200,300))
                         pygame.display.update()
                         pygame.time.delay(3000)
-                        
+                    pygame.mixer.Channel(0).stop()
+                    pygame.mixer.Channel(1).stop()
+                    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'Space_sound.mp3')),loops=-1,fade_ms=2000)
+                    break
+
                 if TWO_PLAYER_BUTTON.checkForInput(GAME_MODE_MOUSE_POS):
                     print("PVP") #Right
                     Round=0
@@ -288,8 +299,8 @@ def draw_play(Round,Start1):
                         score = Winner_font.render(str(Red_player)+" Score " + str(Yellow_player),1,White)
                         DISPLAYSURF.blit(score,(200,300))
                         pygame.display.update()
-                        pygame.time.delay(3000)
-   
+                        pygame.time.delay(3000) 
+
 def Champ_win(Champ_color):
     if Red_player>2:
         Champ_color =Red
@@ -297,7 +308,6 @@ def Champ_win(Champ_color):
     if Yellow_player>2:
         Champ ='YELLOW IS THE CHAMPION'
         Champ_color=Yellow
-
 def draw_Champion(Champ):
     DISPLAYSURF.fill(Black)
     Champ_win(Champ_color)
@@ -393,8 +403,8 @@ def main_PVP(Round,Champ,red_score_text,yellow_score_text):
 def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yellow_player,main):
     pygame.display.update()
     pygame.time.delay(6000)
-    pygame.mixer.Channel(0).pause
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_env/Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
+    pygame.mixer.Channel(0).pause()
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
     yellow_bullets =[]
@@ -508,9 +518,9 @@ def Main_PvP(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
 
 def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):  
     pygame.display.update()
-    pygame.time.delay(6000)
+    pygame.time.delay(3000)
     pygame.mixer.Channel(0).pause
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_env/Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
     yellow_bullets =[]
@@ -597,11 +607,11 @@ def main_CVP(Round,Champ,red_score_text,yellow_score_text,Levels):
                 Red_player+=1
                 #update_score("red",)
                 pygame.display.update()
-                print('RED SRCORE',Red_player)
+                print('RED SCORE',Red_player)
                 
             if winner_text == "YELLOW WINS!":
                 Yellow_player+=1
-                print('YELLOW SRCORE',Yellow_player)
+                print('YELLOW SCORE',Yellow_player)
                 #update_score("yellow",)
                 pygame.display.update()
             break
@@ -641,7 +651,7 @@ def main_CVC2(Round,Champ,red_score_text,yellow_score_text,Levels):
     pygame.display.update()
     pygame.time.delay(6000)
     pygame.mixer.Channel(0).pause
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_env/Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
     yellow_bullets =[]
@@ -775,7 +785,7 @@ def main_CVC(Round,Champ,red_score_text,yellow_score_text,Levels,Red_player,Yell
     pygame.display.update()
     pygame.time.delay(3000)
     pygame.mixer.Channel(0).pause
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Space_Enforcer_env/Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound(os.path.join('Asset_Project_1', 'new.mp3')),loops=-1,fade_ms=3000)
     red = pygame.Rect(100,100,Spaceship_width,Spaceship_height)
     yellow = pygame.Rect(700,100,Spaceship_width,Spaceship_height)
     yellow_bullets =[]

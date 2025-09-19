@@ -1,5 +1,6 @@
 from Game_mode import *
 from Settings import *
+import pygame
  
 Red_player
 Yellow_player

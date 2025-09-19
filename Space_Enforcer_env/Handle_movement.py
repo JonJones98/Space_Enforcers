@@ -35,7 +35,6 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
     side=['1','2']
     ally_lis=[1,0]
     Ally=random.choice(ally_lis)
-    print("Ally: ",Ally)
     if Ally==1:
         cpu_decision=random.choice(up_down)
         print("cpu_decision: ",cpu_decision)
@@ -62,7 +61,7 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                         red_bullets.append(bullet_r)
                         Spaceship_guns_sound.play()
                         CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-        if cpu_decision==' 'and red.y + VEL + red.height < DISPLAYSURF.get_height()-10: #Down
+        if cpu_decision==' 'and red.y + VEL + red.height < DISPLAYSURF.get_height()-20: #Down
                 if a=='1':#Left
                     if yellow.y==red.y:
                         red.x -= VEL*0
@@ -249,7 +248,7 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                         red_bullets.append(bullet_r)
                         Spaceship_guns_sound.play()
                         CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-            if a=='3'and red.y + VEL + red.height < DISPLAYSURF.get_height()-10 :
+            if a=='3'and red.y + VEL + red.height < DISPLAYSURF.get_height()-20 :
                 if yellow.y==red.y:
                     red.y += VEL*0
                     if len(red_bullets)< 1:
@@ -268,7 +267,7 @@ def CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow
                     b.remove(a)
                     pygame.display.update()
                     CPU_red_handle_movement(red,b,c,cpu_paddle,yellow_bullets,red_bullets,yellow)
-            if red.y + VEL + red.height < DISPLAYSURF.get_height()-10: #Down
+            if red.y + VEL + red.height < DISPLAYSURF.get_height()-20: #Down
                 if a=='1':#Left
                     if yellow.y==red.y:
                         red.x -= VEL*0
@@ -408,7 +407,7 @@ def CPU_yellow_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,ye
                         Spaceship_guns_sound.play()
                         CPU_yellow_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,yellow)
 
-            if g==''and yellow.y + VEL + yellow.height < DISPLAYSURF.get_height()-10 :
+            if g==''and yellow.y + VEL + yellow.height < DISPLAYSURF.get_height()-20 :
                 print(e,'h4')
                 if yellow.y==red.y:
                     yellow.y += VEL*0
@@ -426,7 +425,7 @@ def CPU_yellow_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,ye
                     e.remove(g)
                     pygame.display.update()
                     CPU_red_handle_movement(red,e,f,cpu_paddle2,yellow_bullets,red_bullets,yellow)
-            if red.y + VEL + red.height < DISPLAYSURF.get_height()-10: #Down
+            if red.y + VEL + red.height < DISPLAYSURF.get_height()-20: #Down
                 if g=='1':#Left
                     print(e,'h5')
                     if yellow.y==red.y:
@@ -610,7 +609,7 @@ def Cpu_Handle(red,yellow,sign_y,sign_x,red_bullets,Max_bullets):
             red_bullets.append(bullet_y)
     if red.y  < 20: #UP
             sign_y = sign_y  *-1
-    if red.y > DISPLAYSURF.get_height()-20: #DOWN
+    if red.y > DISPLAYSURF.get_height()-40: #DOWN
         sign_y  = sign_y  *-1
     if red.x  < 0: #UP
         sign_x = sign_x *-1

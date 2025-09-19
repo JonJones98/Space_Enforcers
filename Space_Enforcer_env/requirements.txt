@@ -9,3 +9,4 @@ pyglet
 PySide6
 PyQt6
 PyInstaller
+pyvidplayer2
